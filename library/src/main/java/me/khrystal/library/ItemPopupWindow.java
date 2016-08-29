@@ -1,5 +1,6 @@
 package me.khrystal.library;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Build;
@@ -273,8 +274,11 @@ public class ItemPopupWindow extends PopupWindowContainer {
 //
 //        tracksParam.leftMargin = requestedX - trackWidth / 2;
         mTrack.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+
+            @TargetApi(16)
             @Override
             public void onGlobalLayout() {
+                mTrack.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 final int trackWidth = mTrack.getWidth();
                 ViewGroup.MarginLayoutParams tracksParam = (ViewGroup.MarginLayoutParams) mTrack.getLayoutParams();
                 tracksParam.leftMargin = requestedX - trackWidth / 2;
